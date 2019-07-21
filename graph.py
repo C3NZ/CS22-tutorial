@@ -1,3 +1,5 @@
+from collections import deque
+
 from vertex import Vertex
 
 
@@ -123,3 +125,49 @@ class Graph:
                 sorted_edges.add(sorted_edge)
 
         return list(unique_edges)
+
+    def breadth_first_search(self, vertex: str, n: int) -> [str]:
+        if vertex not in self.graph:
+            raise KeyError("The vertex is not inside of the graph")
+
+        if n < 0:
+            raise ValueError("n is less than 0, which is lower than the minimum depth")
+
+        # Initialize the start vertex, the seen nodes, and the queue
+        start_vertex = self.graph[vertex]
+        seen_nodes = set()
+        queue = deque()
+
+        # Start the traversal.
+        queue.append(start_vertex)
+        seen_nodes.add(start_vertex)
+        seen_nodes.add(None)
+        output_verticies = []
+        level = 0
+
+        # Keep traversing while there are still items on the queue
+        while queue and level <= n:
+            curr_vertex = queue.popleft()
+
+            # If the current_vertex is
+            if curr_vertex is None:
+                level += 1
+                queue.append(None)
+
+                # Maximum depth exceeded, two Nones in a row.
+                if queue[0] is None:
+                    return
+
+            # If the level matches the desired depth, add it.
+            if level == n:
+                output_verticies.append(curr_vertex)
+
+            # Iterate through all of the neighbors
+            for neighbor in curr_vertex.neighbors:
+
+                # Add the neighbor to the queue if it hasn't been seen
+                if neighbor not in seen_nodes:
+                    queue.append(neighbor)
+                    seen_nodes.add(neighbor)
+
+        return output_verticies
