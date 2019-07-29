@@ -129,6 +129,24 @@ class Graph:
 
         return list(unique_edges)
 
+    def find_path(self, from_vertex: str, to_vertex: str) -> [str]:
+        """
+            Find path will call our find shortest path function, allowing us
+            to always find the shortest path between two nodes.
+
+            Args:
+            * from_vertex - The key of the vertex we're starting at
+            * to_vertex - The key of the vertex we're going to
+
+            Returns:
+            * A list of vertex keys and the amount of edges if there is a valid
+            path within the graph
+            * An empty list and -1 indicating that there are no paths between the
+            two vertices within the list
+
+        """
+        return self.find_shortest_path(from_vertex, to_vertex)
+
     def find_shortest_path(self, from_vertex: str, to_vertex: str) -> [str]:
         """
             Finding the shortest path from one vertex to another using breadth first
@@ -255,6 +273,23 @@ class Graph:
                     seen_nodes.add(neighbor)
 
         return output_verticies
+
+    def clique(self):
+        """
+            Find the maximal clique within the graph
+        """
+        clique = set()
+
+        for vert_key, vertex in self.graph:
+            if not clique:
+                clique.add(vertex)
+                continue
+
+            for neighbor_key, neighbor in vertex.neighbors:
+                if neighbor not in clique:
+                    continue
+
+            clique.add(vertex)
 
 
 def fill_graph(graph: Graph, verts: list, edges: list):
