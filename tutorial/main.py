@@ -6,8 +6,7 @@ def main():
     graph, vertices, edges = read_graph_file("inputs/insanegraph.txt")
 
     fill_graph(graph, vertices, edges)
-    print(graph)
-    graph.clique()
+    print(graph.clique())
 
 
 if __name__ == "__main__":

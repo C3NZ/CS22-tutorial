@@ -295,7 +295,7 @@ class Graph:
             if len(clique) == count:
                 clique.add(vertex)
 
-        print(clique)
+        return clique
 
 
 def fill_graph(graph: Graph, verts: list, edges: list):
