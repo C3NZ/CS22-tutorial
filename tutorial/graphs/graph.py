@@ -280,16 +280,18 @@ class Graph:
         """
         clique = set()
 
-        for vert_key, vertex in self.graph:
+        for _, vertex in self.graph:
             if not clique:
                 clique.add(vertex)
                 continue
 
-            for neighbor_key, neighbor in vertex.neighbors:
+            for _, neighbor in vertex.neighbors:
                 if neighbor not in clique:
                     continue
 
             clique.add(vertex)
+
+        print(clique)
 
 
 def fill_graph(graph: Graph, verts: list, edges: list):
