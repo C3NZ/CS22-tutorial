@@ -280,16 +280,20 @@ class Graph:
         """
         clique = set()
 
-        for _, vertex in self.graph:
+        for _, vertex in self.graph.items():
             if not clique:
                 clique.add(vertex)
                 continue
 
-            for _, neighbor in vertex.neighbors:
-                if neighbor not in clique:
-                    continue
+            in_clique = True
+            count = 0
 
-            clique.add(vertex)
+            for neighbor, _ in vertex.neighbors:
+                if neighbor in clique:
+                    count += 1
+
+            if len(clique) == count:
+                clique.add(vertex)
 
         print(clique)
 
